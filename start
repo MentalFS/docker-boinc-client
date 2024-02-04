@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "${GUI_RPC_AUTH}" > /etc/boinc-client/gui_rpc_auth.cfg
+
+exec "$@"
