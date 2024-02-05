@@ -17,7 +17,7 @@ COPY start /
 ENTRYPOINT ["/start"]
 USER boinc
 WORKDIR /var/lib/boinc-client
-CMD ["boinc", "--allow_remote_gui_rpc"]
+CMD ["boinc", "--allow_remote_gui_rpc", "--fetch_minimal_work"]
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
