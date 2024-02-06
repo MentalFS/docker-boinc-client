@@ -38,6 +38,7 @@ docker run --name boinc \
   -e GUI_RPC_AUTH="correct horse battery staple" \
   -p 127.0.0.1:31416:31416 \
   -v boinc-data:/var/lib/boinc-client \
+  --gpus all \
   -d ghcr.io/mentalfs/boinc-client
 ```
 
@@ -61,3 +62,5 @@ docker exec -it boinc boinctui
 
 * The client will start with `--allow_remote_gui_rpc`, allowing all hosts to connect to the GUI RPC.
 * Port 31416 should **not** be publicly available, especially not without `GUI_RPC_AUTH` set.
+* GPUs are usable with `--gpus`, `--privileged` (not recommended) or `--device /dev/dri:/dev/dri` depending on GPU model.
+* The above examples do work with WSL2 and NVidia GPU.
