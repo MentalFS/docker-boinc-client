@@ -15,5 +15,5 @@ release:
 	docker build --pull -t $(NAME):latest .
 
 fireup:
-	docker build --progress=plain --no-cache-filter=build -t $(NAME):build .
+	docker build --progress=plain -t $(NAME):build .
 	docker run --rm -d $(NAME):build
