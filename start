@@ -30,6 +30,7 @@ if [ "`whoami`"=="boinc" ]; then
 	if [ "$0"=="/bin/sh" ] && [ -z "$*" ]; then
 		# This makes boinctui appear in Docker Desktop on the Exec tab
 		boinctui
+		echo -n "`whoami`@`hostname`"
 	fi
 fi
 
