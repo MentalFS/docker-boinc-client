@@ -4,7 +4,8 @@ RUN set -eux; \
     apt update; \
     apt -y install --no-install-recommends boinc-client \
       intel-opencl-icd mesa-opencl-icd \
-      boinctui bash-completion nano; \
+      boinctui bash-completion clinfo procps vim-tiny; \
+    update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
 
 # Replace symbolic links
