@@ -17,6 +17,7 @@ RUN set -eux; \
     mv /etc/boinc-client/global_prefs_override.xml /var/lib/boinc-client/ -f
 COPY start /
 ENTRYPOINT ["/start"]
+ENV ENV=/start
 USER boinc
 WORKDIR /var/lib/boinc-client
 CMD ["boinc", "--allow_remote_gui_rpc"]

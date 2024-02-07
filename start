@@ -1,5 +1,11 @@
 #!/bin/sh
 
-echo "${GUI_RPC_AUTH}" > /etc/boinc-client/gui_rpc_auth.cfg
 
-exec "$@"
+if [ "$0"=="/bin/sh" ] && [ -z "$*" ]; then
+	# This makes boinctui appear in Docker Desktop on the Exec tab
+	boinctui
+else
+	echo "${GUI_RPC_AUTH}" > /etc/boinc-client/gui_rpc_auth.cfg
+
+	exec "$@"
+fi
