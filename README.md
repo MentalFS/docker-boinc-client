@@ -23,6 +23,8 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 | Environment Variable | Default |                                                     |
 |----------------------|---------|-----------------------------------------------------|
 | `GUI_RPC_AUTH`       | ` `     | The password for GUI RPC, empty means no password   |
+| `MAX_NCPUS_PCT`      | `100`   | Percentage of CPU cores to use                      |
+| `CPU_USAGE_LIMIT`    | `80`    | Load percentage to use                              |
 
 ## Download
 
@@ -36,6 +38,7 @@ Starting:
 ```bash
 docker run --name boinc \
   -e GUI_RPC_AUTH="correct horse battery staple" \
+  -e MAX_NCPUS_PCT=50 \
   -p 127.0.0.1:31416:31416 \
   -v boinc-data:/var/lib/boinc-client \
   --gpus all \
@@ -64,3 +67,4 @@ docker exec -it boinc boinctui
 * Port 31416 should **not** be publicly available, especially not without `GUI_RPC_AUTH` set.
 * GPUs are usable with `--gpus`, `--privileged` (not recommended) or `--device /dev/dri:/dev/dri` depending on GPU model.
 * The above examples do work with WSL2 and NVidia GPU.
+* `global_prefs_override.xml` will be overwritten to use environment variables.
