@@ -3,7 +3,8 @@ RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     apt update; \
     apt -y install --no-install-recommends boinc-client \
-      bash-completion boinctui intel-opencl-icd mesa-opencl-icd; \
+      intel-opencl-icd mesa-opencl-icd \
+      boinctui bash-completion nano; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
 
 # Replace symbolic links
