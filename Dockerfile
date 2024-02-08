@@ -19,7 +19,7 @@ COPY start /
 ENTRYPOINT ["/start"]
 ENV ENV=/start \
     MAX_NCPUS_PCT=100 \
-    CPU_USAGE_LIMIT=80
+    CPU_USAGE_LIMIT=100
 USER boinc
 WORKDIR /var/lib/boinc-client
 CMD ["boinc", "--allow_remote_gui_rpc"]

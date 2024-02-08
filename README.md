@@ -24,7 +24,7 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 |----------------------|---------|-----------------------------------------------------|
 | `GUI_RPC_AUTH`       | ` `     | The password for GUI RPC, empty means no password   |
 | `MAX_NCPUS_PCT`      | `100`   | Percentage of CPU cores to use                      |
-| `CPU_USAGE_LIMIT`    | `80`    | Load percentage to use                              |
+| `CPU_USAGE_LIMIT`    | `100`   | Load percentage to use                              |
 
 ## Download
 
@@ -63,8 +63,9 @@ docker exec -it boinc boinctui
 
 ## Notes
 
-* The client will start with `--allow_remote_gui_rpc`, allowing all hosts to connect to the GUI RPC.
-* Port 31416 should **not** be publicly available, especially not without `GUI_RPC_AUTH` set.
-* GPUs are usable with `--gpus`, `--privileged` (not recommended) or `--device /dev/dri:/dev/dri` depending on GPU model.
-* The above examples do work with WSL2 and NVidia GPU.
 * `global_prefs_override.xml` will be overwritten to use environment variables.
+* The client will start with `--allow_remote_gui_rpc`, allowing all hosts to connect to the GUI RPC.
+* GPUs are usable with `--gpus`, `--privileged` (not recommended) or `--device /dev/dri:/dev/dri` depending on GPU model.
+* Docker can restrict CPU load with `--cpus`, which is most likely preferable to using `CPU_USAGE_LIMIT`.
+* The above examples do work with WSL2 and NVidia GPU.
+* Port 31416 should **not** be publicly available, no matter whether `GUI_RPC_AUTH` is set.
