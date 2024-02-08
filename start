@@ -27,10 +27,20 @@ if [ "`whoami`"=="boinc" ]; then
 	</boinctui_cfg>
 	END
 
+	cp -rn /etc/skel/. /var/lib/boinc-client/
+	if [ ! -f "/var/lib/boinc-client/.vimrc" ]; then
+		cat > "/var/lib/boinc-client/.vimrc" <<- END
+		runtime! debian.vim
+		set mouse=a
+		map <Tab> :tabnext<CR>
+		map <S-Tab> :tabprevious<CR>
+		END
+	fi
+
 	if [ "$0"=="/bin/sh" ] && [ -z "$*" ]; then
 		# This makes boinctui appear in Docker Desktop on the Exec tab
 		boinctui
-		echo -n "`whoami`@`hostname`"
+		bash -l && exit || echo -n "\n[$0] `whoami`@`hostname`"
 	fi
 fi
 
