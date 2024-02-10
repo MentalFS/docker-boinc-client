@@ -16,13 +16,14 @@ RUN set -eux; \
     mv /etc/boinc-client/cc_config.xml /var/lib/boinc-client/ -f; \
     mv /etc/boinc-client/global_prefs_override.xml /var/lib/boinc-client/ -f
 COPY start /
-ENTRYPOINT ["/start"]
-ENV ENV=/start \
-    MAX_NCPUS_PCT=100 \
-    CPU_USAGE_LIMIT=100
 USER boinc
 WORKDIR /var/lib/boinc-client
+ENTRYPOINT ["/start"]
 CMD ["boinc", "--allow_remote_gui_rpc"]
+ENV ENV=/start \
+    CPU_SCHEDULING_PERIOD_MINUTES=60 \
+    CPU_USAGE_LIMIT=100 \
+    MAX_NCPUS_PCT=100
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
@@ -38,6 +39,7 @@ RUN set -eux; \
 
 # Release
 FROM build
+RUN test -f /var/lib/boinc-client/global_prefs.xml && echo "!!! boinc was started !!!" && exit 1 || echo OK
 COPY --from=test /tmp/tested /tmp/
 VOLUME /var/lib/boinc-client
 EXPOSE 31416
