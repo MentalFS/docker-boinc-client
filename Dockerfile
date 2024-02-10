@@ -27,6 +27,7 @@ ENV ENV=/start \
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
+ENV HOST_VENUE=none
 RUN set -eux; \
     find /var/lib/boinc-client -type f -print0 | xargs -0r tail -n +0; \
     find /etc/boinc-client /var/lib/boinc-client -type l \
@@ -35,7 +36,7 @@ RUN set -eux; \
     /start boinc --show_projects; \
     test -z "$(cat /etc/boinc-client/gui_rpc_auth.cfg)"; \
     test -z "$(egrep -v '^#' /etc/boinc-client/remote_hosts.cfg)"; \
-    tail -n +0 /var/lib/boinc-client/global*; \
+    tail -n +0 /var/lib/boinc-client/global*; grep '<host_venue></host_venue>' /var/lib/boinc-client/global_prefs_override.xml; \
     date --rfc-3339=seconds | tee /tmp/tested
 
 # Release
