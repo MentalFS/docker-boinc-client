@@ -20,14 +20,14 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 
 ## Supported settings
 
-| Environment Variable            | Default   |                                                     |
-|---------------------------------|-----------|-----------------------------------------------------|
-| `HOST_VENUE`                    | *empty*   | Host venue type: `none`, `home`, `school` or `work` |
-| `GUI_RPC_AUTH`                  | *empty*   | The password for GUI RPC, empty means no password   |
-| `CPU_SCHEDULING_PERIOD_MINUTES` | *empty*   | Switch between tasks/projects every X minutes       |
-| `CPU_USAGE_LIMIT`               | `100`     | Load percentage to use                              |
-| `MAX_NCPUS_PCT`                 | `100`     | Percentage of CPU cores to use                      |
-| `GLOBAL_PREFERENCES_XML`        | *empty*   | XML tags to inject into `global_prefs_override.xml` |
+| Environment Variable            | Default   |                                                                  |
+|---------------------------------|-----------|------------------------------------------------------------------|
+| `HOST_VENUE`                    | *empty*   | Host venue type: `none`, `home`, `school` or `work`              |
+| `GUI_RPC_AUTH`                  | *empty*   | The password for GUI RPC, empty means no password                |
+| `CPU_SCHEDULING_PERIOD_MINUTES` | *empty*   | Switch between tasks/projects every X minutes                    |
+| `CPU_USAGE_LIMIT`               | `100`     | Load percentage to use, *empty* uses website preferences         |
+| `MAX_NCPUS_PCT`                 | `100`     | Percentage of CPU cores to use, *empty* uses website preferences |
+| `GLOBAL_PREFERENCES_XML`        | *empty*   | XML tags to inject into `global_prefs_override.xml`              |
 
 ## Download
 
