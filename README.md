@@ -20,13 +20,13 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 
 ## Supported settings
 
-| Environment Variable            | Default   |                                                        |
-|---------------------------------|-----------|--------------------------------------------------------|
-| `HOST_VENUE`                    | *empty*   | Host venue type: `home`, `school` or `work` or *empty* |
-| `GUI_RPC_AUTH`                  | *empty*   | The password for GUI RPC, empty means no password      |
-| `CPU_SCHEDULING_PERIOD_MINUTES` | `60`      | Switch between tasks/projects every X minutes          |
-| `CPU_USAGE_LIMIT`               | `100`     | Load percentage to use                                 |
-| `MAX_NCPUS_PCT`                 | `100`     | Percentage of CPU cores to use                         |
+| Environment Variable            | Default   |                                                     |
+|---------------------------------|-----------|-----------------------------------------------------|
+| `HOST_VENUE`                    | *empty*   | Host venue type: `none`, `home`, `school` or `work` |
+| `GUI_RPC_AUTH`                  | *empty*   | The password for GUI RPC, empty means no password   |
+| `CPU_SCHEDULING_PERIOD_MINUTES` | `60`      | Switch between tasks/projects every X minutes       |
+| `CPU_USAGE_LIMIT`               | `100`     | Load percentage to use                              |
+| `MAX_NCPUS_PCT`                 | `100`     | Percentage of CPU cores to use                      |
 
 ## Download
 

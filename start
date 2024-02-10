@@ -6,9 +6,9 @@ if [ "`whoami`"=="boinc" ]; then
 
 	cat > "/var/lib/boinc-client/global_prefs_override.xml" <<- END
 	<global_preferences>
+		`test -n "${HOST_VENUE}" && echo "<host_venue>${HOST_VENUE}</host_venue>"`
 		<cpu_scheduling_period_minutes>${CPU_SCHEDULING_PERIOD_MINUTES}</cpu_scheduling_period_minutes>
 		<cpu_usage_limit>${CPU_USAGE_LIMIT}</cpu_usage_limit>
-		<host_venue>${HOST_VENUE}</host_venue>
 		<max_ncpus_pct>${MAX_NCPUS_PCT}</max_ncpus_pct>
 		<run_gpu_if_user_active>1</run_gpu_if_user_active>
 		<run_if_user_active>1</run_if_user_active>

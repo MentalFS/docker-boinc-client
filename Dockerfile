@@ -35,6 +35,7 @@ RUN set -eux; \
     /start boinc --show_projects; \
     test -z "$(cat /etc/boinc-client/gui_rpc_auth.cfg)"; \
     test -z "$(egrep -v '^#' /etc/boinc-client/remote_hosts.cfg)"; \
+    tail -n +0 /var/lib/boinc-client/global*; \
     date --rfc-3339=seconds | tee /tmp/tested
 
 # Release
