@@ -23,7 +23,9 @@ CMD ["boinc", "--allow_remote_gui_rpc"]
 ENV ENV=/start \
     CPU_SCHEDULING_PERIOD_MINUTES=60 \
     CPU_USAGE_LIMIT=100 \
-    MAX_NCPUS_PCT=100
+    MAX_NCPUS_PCT=100 \
+    HEALTHCHECK_PATTERN=EXECUTING
+HEALTHCHECK --interval=5m CMD boinccmd --get_tasks | egrep -q "${HEALTHECK_PATTERN}" && exit 0 || exit 1
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
