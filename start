@@ -6,14 +6,14 @@ if [ "`whoami`"=="boinc" ]; then
 
 	[ -n "${CPU_SCHEDULING_PERIOD_MINUTES}" ] && export PREF_CPU_SCHEDULING_PERIOD_MINUTES="${CPU_SCHEDULING_PERIOD_MINUTES}"
 	[ -n "${CPU_USAGE_LIMIT}" ] && export PREF_CPU_USAGE_LIMIT="${CPU_USAGE_LIMIT}"
-	[ -n "${HOST_VENUE}" ] && export PREF_HOST_VENUE="${HOST_VENUE}"
 	[ -n "${MAX_NCPUS_PCT}" ] && export PREF_MAX_NCPUS_PCT="${MAX_NCPUS_PCT}"
 	PREFS_OVERRIDE_FILE="/var/lib/boinc-client/global_prefs_override.xml"
 	echo "<global_preferences>" > "${PREFS_OVERRIDE_FILE}"
+	[ -n "${HOST_VENUE}" ] && echo "<host_venue>$([ "${HOST_VENUE}" = "none" ] || echo "${HOST_VENUE}")</host_venue>" >> "${PREFS_OVERRIDE_FILE}"
 	env | egrep -o '^PREF_[^=]+' | sort | while read PREF; do
 		KEY="$(echo "${PREF#PREF_}" | tr '[:upper:]' '[:lower:]')"
 		eval VALUE="\${$PREF}"
-		echo "<${KEY}>$([ "${VALUE}" = "none" ] || echo "${VALUE}")</${KEY}>" >> "${PREFS_OVERRIDE_FILE}"
+		echo "<${KEY}>${VALUE}</${KEY}>" >> "${PREFS_OVERRIDE_FILE}"
 	done
 	[ -n "${GLOBAL_PREFERENCES_XML}" ] && echo "${GLOBAL_PREFERENCES_XML}" >> "${PREFS_OVERRIDE_FILE}"
 	echo "</global_preferences>" >> "${PREFS_OVERRIDE_FILE}"
