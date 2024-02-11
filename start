@@ -10,7 +10,7 @@ if [ "`whoami`"=="boinc" ]; then
 	[ -n "${MAX_NCPUS_PCT}" ] && export PREF_MAX_NCPUS_PCT="${MAX_NCPUS_PCT}"
 	PREFS_OVERRIDE_FILE="/var/lib/boinc-client/global_prefs_override.xml"
 	echo "<global_preferences>" > "${PREFS_OVERRIDE_FILE}"
-	env | egrep -o '^PREF_[^=]+' | while read PREF; do
+	env | egrep -o '^PREF_[^=]+' | sort | while read PREF; do
 		KEY="$(echo "${PREF#PREF_}" | tr '[:upper:]' '[:lower:]')"
 		eval VALUE="\${$PREF}"
 		echo "<${KEY}>$([ "${VALUE}" = "none" ] || echo "${VALUE}")</${KEY}>" >> "${PREFS_OVERRIDE_FILE}"
