@@ -28,7 +28,7 @@ ENV ENV=/start \
 	PREF_SUSPEND_CPU_USAGE=50 \
 	PREF_SUSPEND_IF_NO_RECENT_INPUT=0 \
     HEALTHCHECK_PATTERN=EXECUTING
-HEALTHCHECK --interval=5m CMD boinccmd --get_tasks | egrep -q "${HEALTHECK_PATTERN}" && exit 0 || exit 1
+HEALTHCHECK --interval=5m CMD boinccmd --get_tasks | egrep -q "${HEALTHCHECK_PATTERN}" && exit 0 || exit 1
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
