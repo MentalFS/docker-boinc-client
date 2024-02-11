@@ -17,7 +17,6 @@ if [ "`whoami`"=="boinc" ]; then
 	done
 	[ -n "${GLOBAL_PREFERENCES_XML}" ] && echo "${GLOBAL_PREFERENCES_XML}" >> "${PREFS_OVERRIDE_FILE}"
 	echo "</global_preferences>" >> "${PREFS_OVERRIDE_FILE}"
-	echo "</global_preferences>" >> "${PREFS_OVERRIDE_FILE}"
 
 	cat > "/var/lib/boinc-client/.boinctui.cfg" <<- END
 	<boinctui_cfg>
