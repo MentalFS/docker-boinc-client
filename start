@@ -4,19 +4,20 @@ if [ "`whoami`"=="boinc" ]; then
 	# Setup environment
 	echo "${GUI_RPC_AUTH}" > /etc/boinc-client/gui_rpc_auth.cfg
 
-	cat > "/var/lib/boinc-client/global_prefs_override.xml" <<- END
-	<global_preferences>
-		${HOST_VENUE:+"<host_venue>$([ "${HOST_VENUE}" = "none" ] || echo "${HOST_VENUE}")</host_venue>"}
-		${CPU_SCHEDULING_PERIOD_MINUTES:+"<cpu_scheduling_period_minutes>${CPU_SCHEDULING_PERIOD_MINUTES}</cpu_scheduling_period_minutes>"}
-		${CPU_USAGE_LIMIT:+"<cpu_usage_limit>${CPU_USAGE_LIMIT}</cpu_usage_limit>"}
-		${MAX_NCPUS_PCT:+"<max_ncpus_pct>${MAX_NCPUS_PCT}</max_ncpus_pct>"}
-		<run_gpu_if_user_active>1</run_gpu_if_user_active>
-		<run_if_user_active>1</run_if_user_active>
-		<suspend_cpu_usage>50</suspend_cpu_usage>
-		<suspend_if_no_recent_input>0</suspend_if_no_recent_input>
-        ${GLOBAL_PREFERENCES_XML}
-	</global_preferences>
-	END
+	[ -n "${CPU_SCHEDULING_PERIOD_MINUTES}" ] && export PREF_CPU_SCHEDULING_PERIOD_MINUTES="${CPU_SCHEDULING_PERIOD_MINUTES}"
+	[ -n "${CPU_USAGE_LIMIT}" ] && export PREF_CPU_USAGE_LIMIT="${CPU_USAGE_LIMIT}"
+	[ -n "${HOST_VENUE}" ] && export PREF_HOST_VENUE="${HOST_VENUE}"
+	[ -n "${MAX_NCPUS_PCT}" ] && export PREF_MAX_NCPUS_PCT="${MAX_NCPUS_PCT}"
+	PREFS_OVERRIDE_FILE="/var/lib/boinc-client/global_prefs_override.xml"
+	echo "<global_preferences>" > "${PREFS_OVERRIDE_FILE}"
+	env | egrep -o '^PREF_[^=]+' | while read PREF; do
+		KEY="$(echo "${PREF#PREF_}" | tr '[:upper:]' '[:lower:]')"
+		eval VALUE="\${$PREF}"
+		echo "<${KEY}>$([ "${VALUE}" = "none" ] || echo "${VALUE}")</${KEY}>" >> "${PREFS_OVERRIDE_FILE}"
+	done
+	[ -n "${GLOBAL_PREFERENCES_XML}" ] && echo "${GLOBAL_PREFERENCES_XML}" >> "${PREFS_OVERRIDE_FILE}"
+	echo "</global_preferences>" >> "${PREFS_OVERRIDE_FILE}"
+	echo "</global_preferences>" >> "${PREFS_OVERRIDE_FILE}"
 
 	cat > "/var/lib/boinc-client/.boinctui.cfg" <<- END
 	<boinctui_cfg>

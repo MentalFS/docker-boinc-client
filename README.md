@@ -20,15 +20,15 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 
 ## Supported settings
 
-| Environment Variable            | Default     |                                                                                  |
-|---------------------------------|-------------|----------------------------------------------------------------------------------|
-| `GUI_RPC_AUTH`                  | *empty*     | The password for GUI RPC, empty means no password                                |
-| `HOST_VENUE`                    | *empty*     | Host venue type: `none`, `home`, `school` or `work`                              |
-| `CPU_SCHEDULING_PERIOD_MINUTES` | *empty*     | Switch between tasks/projects every X minutes                                    |
-| `CPU_USAGE_LIMIT`               | `100`       | Load percentage to use, *empty* uses website preferences                         |
-| `MAX_NCPUS_PCT`                 | `100`       | Percentage of CPU cores to use, *empty* uses website preferences                 |
-| `GLOBAL_PREFERENCES_XML`        | *empty*     | XML tags to inject into `global_prefs_override.xml`                              |
-| `HEALTHCHECK_PATTERN`           | `EXECUTING` | Will make the conainer unhealthy when no task is executing. Set to `.` to avoid. |
+| Environment Variable            | Default     |                                                                                                |
+|---------------------------------|-------------|------------------------------------------------------------------------------------------------|
+| `GUI_RPC_AUTH`                  | *empty*     | The password for GUI RPC, empty means no password                                              |
+| `HOST_VENUE`                    | *empty*     | Host venue type: `none`, `home`, `school` or `work`                                            |
+| `CPU_USAGE_LIMIT`               | `100`       | Load percentage to use, *empty* uses website preferences                                       |
+| `MAX_NCPUS_PCT`                 | `100`       | Percentage of CPU cores to use, *empty* uses website preferences                               |
+| `PREF_*`                        | *empty*     | Variables starting with `PREF_` will be translated to a setting in `global_prefs_override.xml` |
+| `GLOBAL_PREFERENCES_XML`        | *empty*     | Raw XML tags to inject into `global_prefs_override.xml`                                        |
+| `HEALTHCHECK_PATTERN`           | `EXECUTING` | Will make the conainer unhealthy when no task is executing. Set to `.` to avoid.               |
 
 ## Download
 
