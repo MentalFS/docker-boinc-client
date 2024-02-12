@@ -24,11 +24,12 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 |---------------------------------|-------------|------------------------------------------------------------------------------------------------|
 | `GUI_RPC_AUTH`                  | *empty*     | The password for GUI RPC, empty means no password                                              |
 | `HOST_VENUE`                    | *empty*     | Host venue type: `none`, `home`, `school` or `work`                                            |
-| `CPU_USAGE_LIMIT`               | `100`       | Load percentage to use, *empty* uses website preferences                                       |
 | `MAX_NCPUS_PCT`                 | `100`       | Percentage of CPU cores to use, *empty* uses website preferences                               |
-| `PREF_*`                        | *empty*     | Variables starting with `PREF_` will be translated to a setting in `global_prefs_override.xml` |
-| `GLOBAL_PREFERENCES_XML`        | *empty*     | Raw XML tags to inject into `global_prefs_override.xml`                                        |
-| `HEALTHCHECK_PATTERN`           | `EXECUTING` | Will make the conainer unhealthy when no task is executing. Set to `.` to avoid.               |
+| `CPU_USAGE_LIMIT`               | `100`       | Load percentage to use, *empty* uses website preferences                                       |
+| `CPU_SCHEDULING_PERIOD_MINUTES` | *empty*     | Switch between tasks/projects every X minutes                                                  |
+| `WORK_BUF_MIN_DAYS`             | *empty*     | Store at least enough tasks to keep the computer busy for this long (in Days, decimal number)  |
+| `WORK_BUF_ADDITIONAL_DAYS`      | *empty*     | Store additional tasks above the minimum level (in Days, decimal number)                       |
+| `HEALTHCHECK_PATTERN`           | `EXECUTING` | Will make the conainer unhealthy when no task is executing, set to `.` to avoid that           |
 
 ## Download
 
@@ -68,6 +69,7 @@ docker exec -it boinc boinctui
 ## Notes
 
 * `global_prefs_override.xml` will be overwritten to use environment variables.
+* Apparently the order in `global_prefs_override.xml` matters, be aware of that when using `GLOBAL_PREFERENCES_XML`.
 * The client will start with `--allow_remote_gui_rpc`, allowing all hosts to connect to the GUI RPC.
 * GPUs are usable with `--gpus`, `--privileged` (not recommended) or `--device /dev/dri:/dev/dri` depending on GPU model.
 * Docker can restrict CPU load with `--cpus`, which is most likely preferable to using `CPU_USAGE_LIMIT`.

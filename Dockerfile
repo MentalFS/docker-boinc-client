@@ -23,10 +23,6 @@ CMD ["boinc", "--allow_remote_gui_rpc"]
 ENV ENV=/start \
     CPU_USAGE_LIMIT=100 \
     MAX_NCPUS_PCT=100 \
-	PREF_RUN_GPU_IF_USER_ACTIVE=1 \
-	PREF_RUN_IF_USER_ACTIVE=1 \
-	PREF_SUSPEND_CPU_USAGE=50 \
-	PREF_SUSPEND_IF_NO_RECENT_INPUT=0 \
     HEALTHCHECK_PATTERN=EXECUTING
 HEALTHCHECK --interval=1m CMD boinccmd --get_tasks | egrep -q "${HEALTHCHECK_PATTERN}" && exit 0 || exit 1
 
