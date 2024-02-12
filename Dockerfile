@@ -3,19 +3,21 @@ RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     apt update; \
     apt -y install --no-install-recommends boinc-client \
-      intel-opencl-icd mesa-opencl-icd \
-      boinctui bash-completion clinfo procps vim-tiny; \
+      intel-opencl-icd mesa-opencl-icd sudo \
+      boinctui bash-completion clinfo curl procps vim-tiny; \
     update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
 
 # Replace symbolic links
 FROM install AS build
+COPY start /
 RUN set -eux; \
     chown boinc:boinc /etc/boinc-client/*; \
     mkdir -p /var/lib/boinc-client/locale; \
     mv /etc/boinc-client/cc_config.xml /var/lib/boinc-client/ -f; \
     mv /etc/boinc-client/global_prefs_override.xml /var/lib/boinc-client/ -f
-COPY start /
+COPY sudoers.d/50-lhcathome_boinc_theory_native /etc/sudoers.d/
+RUN set -eux; chmod a-w /etc/sudoers.d/50-lhcathome_boinc_theory_native; chmod o-r /etc/sudoers.d/50-lhcathome_boinc_theory_native
 USER boinc
 WORKDIR /var/lib/boinc-client
 ENTRYPOINT ["/start"]
