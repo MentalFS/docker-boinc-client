@@ -3,7 +3,7 @@
 if [ "`whoami`"=="boinc" ]; then
 	# Setup environment
 	echo "${GUI_RPC_AUTH}" > /etc/boinc-client/gui_rpc_auth.cfg
-	cat > "/var/lib/boinc-client/global_prefs_override.xml" <<- END
+	sed '/^[[:space:]]*$/d' > "/var/lib/boinc-client/global_prefs_override.xml" <<- END
 	<global_preferences>
 		${HOST_VENUE:+"<host_venue>$([ "${HOST_VENUE}" = "none" ] || echo "${HOST_VENUE}")</host_venue>"}
 		<run_if_user_active>1</run_if_user_active>
@@ -11,10 +11,20 @@ if [ "`whoami`"=="boinc" ]; then
 		${MAX_NCPUS_PCT:+"<max_ncpus_pct>${MAX_NCPUS_PCT}</max_ncpus_pct>"}
 		${CPU_USAGE_LIMIT:+"<cpu_usage_limit>${CPU_USAGE_LIMIT}</cpu_usage_limit>"}
 		<suspend_cpu_usage>50</suspend_cpu_usage>
+		${RAM_MAX_USED_PCT:+"<ram_max_used_busy_pct>${RAM_MAX_USED_PCT}</ram_max_used_busy_pct>"}
+		${MAX_NCPUS_PCT:+"<niu_max_ncpus_pct>${MAX_NCPUS_PCT}</niu_max_ncpus_pct>"}
+		${CPU_USAGE_LIMIT:+"<niu_cpu_usage_limit>${CPU_USAGE_LIMIT}</niu_cpu_usage_limit>"}
+		<niu_suspend_cpu_usage>50</niu_suspend_cpu_usage>
+		${RAM_MAX_USED_PCT:+"<ram_max_used_idle_pct>${RAM_MAX_USED_PCT}</ram_max_used_idle_pct>"}
 		<suspend_if_no_recent_input>0</suspend_if_no_recent_input>
 		${CPU_SCHEDULING_PERIOD_MINUTES:+"<cpu_scheduling_period_minutes>${CPU_SCHEDULING_PERIOD_MINUTES}</cpu_scheduling_period_minutes>"}
+		${DISK_INTERVAL:+"<disk_interval>${DISK_INTERVAL}</disk_interval>"}
+		${LEAVE_APPS_IN_MEMORY:+"<leave_apps_in_memory>${LEAVE_APPS_IN_MEMORY}</leave_apps_in_memory>"}
 		${WORK_BUF_MIN_DAYS:+"<work_buf_min_days>${WORK_BUF_MIN_DAYS}</work_buf_min_days>"}
 		${WORK_BUF_ADDITIONAL_DAYS:+"<work_buf_additional_days>${WORK_BUF_ADDITIONAL_DAYS}</work_buf_additional_days>"}
+		${DISK_MAX_USED_GB:+"<disk_max_used_gb>${DISK_MAX_USED_GB}</disk_max_used_gb>"}
+		${DISK_MIN_FREE_GB:+"<disk_min_free_gb>${DISK_MIN_FREE_GB}</disk_min_free_gb>"}
+		${DISK_MAX_USED_PCT:+"<disk_max_used_pct>${DISK_MAX_USED_PCT}</disk_max_used_pct>"}
 	</global_preferences>
 	END
 

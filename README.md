@@ -26,7 +26,9 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 | `HOST_VENUE`                    | *empty*     | Host venue type: `none`, `home`, `school` or `work`                                            |
 | `MAX_NCPUS_PCT`                 | `100`       | Percentage of CPU cores to use, *empty* uses website preferences                               |
 | `CPU_USAGE_LIMIT`               | `100`       | Load percentage to use, *empty* uses website preferences                                       |
+| `RAM_MAX_USED_PCT`              | *empty*     | Percentage of RAM to use at max, *empty* uses website preferences                              |
 | `CPU_SCHEDULING_PERIOD_MINUTES` | *empty*     | Switch between tasks/projects every X minutes                                                  |
+| `DISK_INTERVAL`                 | *empty*     | Interval in seconds how often to save state to disk, *empty* uses website preferences          |
 | `WORK_BUF_MIN_DAYS`             | *empty*     | Store at least enough tasks to keep the computer busy for this long (in Days, decimal number)  |
 | `WORK_BUF_ADDITIONAL_DAYS`      | *empty*     | Store additional tasks above the minimum level (in Days, decimal number)                       |
 | `HEALTHCHECK_PATTERN`           | `EXECUTING` | Will make the conainer unhealthy when no task is executing, set to `.` to avoid that           |
