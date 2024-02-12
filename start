@@ -16,6 +16,7 @@ if [ "`whoami`"=="boinc" ]; then
 		${WORK_BUF_MIN_DAYS:+"<work_buf_min_days>${WORK_BUF_MIN_DAYS}</work_buf_min_days>"}
 		${WORK_BUF_ADDITIONAL_DAYS:+"<work_buf_additional_days>${WORK_BUF_ADDITIONAL_DAYS}</work_buf_additional_days>"}
 	</global_preferences>
+	END
 
 	cat > "/var/lib/boinc-client/.boinctui.cfg" <<- END
 	<boinctui_cfg>
