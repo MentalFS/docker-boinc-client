@@ -10,7 +10,11 @@ RUN set -eux; \
 
 # Replace symbolic links
 FROM install AS build
-RUN  mkdir -p /var/lib/boinc-client/locale
+RUN set -eux; \
+    mkdir -p /var/lib/boinc-client/locale; \
+    touch /etc/boinc-client/boinctui.cfg; \
+    chown boinc:boinc /etc/boinc-client/*; \
+    ln -s /etc/boinc-client/boinctui.cfg /var/lib/boinc-client/.boinctui.cfg 
 COPY start /
 USER boinc
 WORKDIR /var/lib/boinc-client

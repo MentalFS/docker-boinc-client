@@ -37,9 +37,13 @@ if [ "`whoami`"=="boinc" ]; then
 		rm -f /var/lib/boinc-client/global_prefs_override.xml
 		ln -s /etc/boinc-client/global_prefs_override.xml /var/lib/boinc-client/global_prefs_override.xml
 	fi
+	if [ -f /var/lib/boinc-client/.boinctui.cfg ] && [ ! -h /var/lib/boinc-client/.boinctui.cfg ]; then
+		rm -f /var/lib/boinc-client/.boinctui.cfg
+		ln -s /etc/boinc-client/boinctui.cfg /var/lib/boinc-client/.boinctui.cfg
+	fi
 
 	# tool setup
-	cat > "/var/lib/boinc-client/.boinctui.cfg" <<- END
+	cat > "/etc/boinc-client/boinctui.cfg" <<- END
 	<boinctui_cfg>
 		<server>
 			<host>localhost</host>
