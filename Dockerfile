@@ -14,7 +14,7 @@ RUN set -eux; \
     mkdir -p /var/lib/boinc-client/locale; \
     touch /etc/boinc-client/boinctui.cfg; \
     chown boinc:boinc /etc/boinc-client/*; \
-    ln -s /etc/boinc-client/boinctui.cfg /var/lib/boinc-client/.boinctui.cfg 
+    ln -s /etc/boinc-client/boinctui.cfg /var/lib/boinc-client/.boinctui.cfg
 COPY start /
 USER boinc
 WORKDIR /var/lib/boinc-client
