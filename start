@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "`whoami`"=="boinc" ]; then
+if [ "`whoami`" = "boinc" ]; then
 	# Setup environment
 	echo "${GUI_RPC_AUTH}" > /etc/boinc-client/gui_rpc_auth.cfg
 	sed '/^[[:space:]]*$/d' > "/etc/boinc-client/global_prefs_override.xml" <<- END
@@ -66,7 +66,7 @@ if [ "`whoami`"=="boinc" ]; then
 		END
 	fi
 
-	if [ "$0"=="/bin/sh" ] && [ -z "$*" ]; then
+	if [ "$0" = "/bin/sh" ] && [ -z "$*" ]; then
 		# This makes boinctui appear in Docker Desktop on the Exec tab
 		boinctui
 		bash -l && exit || echo -n "\n[$0] `whoami`@`hostname`"
