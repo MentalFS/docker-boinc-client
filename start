@@ -3,7 +3,7 @@
 if [ "`whoami`"=="boinc" ]; then
 	# Setup environment
 	echo "${GUI_RPC_AUTH}" > /etc/boinc-client/gui_rpc_auth.cfg
-	sed '/^[[:space:]]*$/d' > "/var/lib/boinc-client/global_prefs_override.xml" <<- END
+	sed '/^[[:space:]]*$/d' > "/etc/boinc-client/global_prefs_override.xml" <<- END
 	<global_preferences>
 		${HOST_VENUE:+"<host_venue>$([ "${HOST_VENUE}" = "none" ] || echo "${HOST_VENUE}")</host_venue>"}
 		<run_if_user_active>1</run_if_user_active>
@@ -28,6 +28,17 @@ if [ "`whoami`"=="boinc" ]; then
 	</global_preferences>
 	END
 
+	# Migrate from old image, can be removed at some point to allow own files
+	if [ -f /var/lib/boinc-client/cc_config.xml ] && [ ! -h /var/lib/boinc-client/cc_config.xml ]; then
+		rm -f /var/lib/boinc-client/cc_config.xml
+		ln -s /etc/boinc-client/cc_config.xml /var/lib/boinc-client/cc_config.xml
+	fi
+	if [ -f /var/lib/boinc-client/global_prefs_override.xml ] && [ ! -h /var/lib/boinc-client/global_prefs_override.xml ]; then
+		rm -f /var/lib/boinc-client/global_prefs_override.xml
+		ln -s /etc/boinc-client/global_prefs_override.xml /var/lib/boinc-client/global_prefs_override.xml
+	fi
+
+	# tool setup
 	cat > "/var/lib/boinc-client/.boinctui.cfg" <<- END
 	<boinctui_cfg>
 		<server>
