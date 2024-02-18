@@ -1,8 +1,10 @@
 FROM debian:stable-20240211-slim as install
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
+	sed -i 's/^Components:.*/Components: main contrib non-free non-free-firmware/' /etc/apt/sources.list.d/debian.sources; \
     apt update; \
     apt -y install --no-install-recommends boinc-client \
+      boinc-client-opencl boinc-client-nvidia-cuda \
       intel-opencl-icd mesa-opencl-icd \
       boinctui bash-completion clinfo procps vim-tiny; \
     update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
@@ -19,7 +21,7 @@ COPY start /
 USER boinc
 WORKDIR /var/lib/boinc-client
 ENTRYPOINT ["/start"]
-CMD ["boinc", "--allow_remote_gui_rpc"]
+CMD ["boinc"]
 ENV ENV=/start \
     CPU_USAGE_LIMIT=100 \
     X_NCPUS_PCT=100 \
@@ -39,6 +41,7 @@ RUN set -eux; \
     test -z "$(cat /etc/boinc-client/gui_rpc_auth.cfg)"; \
     test -z "$(egrep -v '^#' /etc/boinc-client/remote_hosts.cfg)"; \
     tail -n +0 /var/lib/boinc-client/global*; grep '<host_venue></host_venue>' /var/lib/boinc-client/global_prefs_override.xml; \
+    find /etc/boinc-client -type f -print0 | xargs -0r tail -vn +0; \
     date --rfc-3339=seconds | tee /tmp/tested
 
 # Release

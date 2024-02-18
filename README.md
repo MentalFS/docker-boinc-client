@@ -23,6 +23,7 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 | Environment Variable            | Default     |                                                                                                |
 |---------------------------------|-------------|------------------------------------------------------------------------------------------------|
 | `GUI_RPC_AUTH`                  | *empty*     | The password for GUI RPC, empty means no password                                              |
+| `DEVICE_NAME`                   | *empty*     | The device name will default to the docker hostname (usually random) if not set                |
 | `HOST_VENUE`                    | *empty*     | Host venue type: `none`, `home`, `school` or `work`                                            |
 | `MAX_NCPUS_PCT`                 | `100`       | Percentage of CPU cores to use, *empty* uses website preferences                               |
 | `CPU_USAGE_LIMIT`               | `100`       | Load percentage to use, *empty* uses website preferences                                       |
@@ -45,6 +46,7 @@ Starting:
 ```bash
 docker run --name boinc \
   -e GUI_RPC_AUTH="correct horse battery staple" \
+  -e DEVICE_NAME="${HOSTNAME}-docker" \
   -e MAX_NCPUS_PCT=50 \
   -p 127.0.0.1:31416:31416 \
   -v boinc-data:/var/lib/boinc-client \
@@ -72,7 +74,7 @@ docker exec -it boinc boinctui
 
 * `global_prefs_override.xml` will be overwritten to use environment variables.
 * Apparently the order in `global_prefs_override.xml` matters, be aware of that when using `GLOBAL_PREFERENCES_XML`.
-* The client will start with `--allow_remote_gui_rpc`, allowing all hosts to connect to the GUI RPC.
+* The option `allow_remote_gui_rpc` will be set to `1`, allowing all hosts to connect to the GUI RPC.
 * GPUs are usable with `--gpus`, `--privileged` (not recommended) or `--device /dev/dri:/dev/dri` depending on GPU model.
 * Docker can restrict CPU load with `--cpus`, which is most likely preferable to using `CPU_USAGE_LIMIT`.
 * The above examples do work with WSL2 and NVidia GPU.

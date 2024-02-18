@@ -27,6 +27,24 @@ if [ "`whoami`" = "boinc" ]; then
 		${DISK_MAX_USED_PCT:+"<disk_max_used_pct>${DISK_MAX_USED_PCT}</disk_max_used_pct>"}
 	</global_preferences>
 	END
+	sed '/^[[:space:]]*$/d' > "/etc/boinc-client/cc_config.xml" <<- END
+	<cc_config>
+		<options>
+			<allow_remote_gui_rpc>1</allow_remote_gui_rpc>
+			${DEVICE_NAME:+"<device_name>${DEVICE_NAME}</device_name>"}
+			<dont_use_vbox>1</dont_use_vbox>
+			${FETCH_MINIMAL_WORK:+"<fetch_minimal_work>${FETCH_MINIMAL_WORK}</fetch_minimal_work>"}
+		</options>
+		<log_flags>
+			<cpu_sched>1</cpu_sched>
+			<cpu_sched_status>1</cpu_sched_status>
+			<file_xfer>1</file_xfer>
+			<sched_ops>1</sched_ops>
+			<task>1</task>
+			<unparsed_xml>1</unparsed_xml>
+		</log_flags>
+	</cc_config>
+	END
 
 	# Migrate from old image, can be removed at some point to allow own files
 	if [ -f /var/lib/boinc-client/cc_config.xml ] && [ ! -h /var/lib/boinc-client/cc_config.xml ]; then
