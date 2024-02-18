@@ -5,7 +5,7 @@ RUN set -eux; \
     apt update; \
     apt -y install --no-install-recommends boinc-client \
       boinc-client-opencl boinc-client-nvidia-cuda \
-      intel-opencl-icd mesa-opencl-icd \
+      libcuda1 intel-opencl-icd mesa-opencl-icd \
       boinctui bash-completion clinfo procps vim-tiny; \
     update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
