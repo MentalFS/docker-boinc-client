@@ -1,11 +1,9 @@
 FROM debian:stable-20240211-slim as install
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
-	sed -i 's/^Components:.*/Components: main contrib non-free non-free-firmware/' /etc/apt/sources.list.d/debian.sources; \
     apt update; \
     apt -y install --no-install-recommends boinc-client \
-      boinc-client-opencl boinc-client-nvidia-cuda \
-      libcuda1 intel-opencl-icd mesa-opencl-icd \
+      intel-opencl-icd mesa-opencl-icd \
       boinctui bash-completion clinfo procps vim-tiny; \
     update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
