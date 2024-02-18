@@ -33,11 +33,9 @@ if [ "`whoami`" = "boinc" ]; then
 			<allow_remote_gui_rpc>1</allow_remote_gui_rpc>
 			${DEVICE_NAME:+"<device_name>${DEVICE_NAME}</device_name>"}
 			<dont_use_vbox>1</dont_use_vbox>
-			${FETCH_MINIMAL_WORK:+"<fetch_minimal_work>${FETCH_MINIMAL_WORK}</fetch_minimal_work>"}
 		</options>
 		<log_flags>
 			<cpu_sched>1</cpu_sched>
-			<cpu_sched_status>1</cpu_sched_status>
 			<file_xfer>1</file_xfer>
 			<sched_ops>1</sched_ops>
 			<task>1</task>
