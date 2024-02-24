@@ -12,7 +12,9 @@ RUN set -eux; \
 FROM install AS build
 RUN set -eux; \
     mkdir -p /var/lib/boinc-client/locale; \
-    chown boinc:boinc /etc/boinc-client/*;
+    chown boinc:boinc /etc/boinc-client/*; \
+    mkdir -p /etc/OpenCL/vendors && \
+    test -f /etc/OpenCL/vendors/nvidia.icd || echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd
 COPY start /
 USER boinc
 WORKDIR /var/lib/boinc-client
@@ -20,6 +22,7 @@ ENTRYPOINT ["/start"]
 CMD ["boinc"]
 ENV ENV=/start \
     CPU_USAGE_LIMIT=100 \
+    NVIDIA_DRIVER_CAPABILITIES=compute,video,utility \
     X_NCPUS_PCT=100 \
     HEALTHCHECK_PATTERN=EXECUTING
 HEALTHCHECK --interval=1m CMD boinccmd --get_tasks | egrep -q "${HEALTHCHECK_PATTERN}" && exit 0 || exit 1
