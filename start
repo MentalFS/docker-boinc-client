@@ -33,6 +33,9 @@ if [ "`whoami`" = "boinc" ]; then
 			<allow_remote_gui_rpc>1</allow_remote_gui_rpc>
 			${DEVICE_NAME:+"<device_name>${DEVICE_NAME}</device_name>"}
 			<dont_use_vbox>1</dont_use_vbox>
+			${REC_HALF_LIFE_DAYS:+"<rec_half_life_days>${REC_HALF_LIFE_DAYS}</rec_half_life_days>"}
+            <use_all_gpus>1</use_all_gpus>
+			${START_DELAY:+"<start_delay>${START_DELAY}</start_delay>"}
 		</options>
 		<log_flags>
 			<cpu_sched>1</cpu_sched>
