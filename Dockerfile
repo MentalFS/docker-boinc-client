@@ -25,7 +25,9 @@ ENV ENV=/start \
     NVIDIA_DRIVER_CAPABILITIES=compute,video,utility \
     X_NCPUS_PCT=100 \
     HEALTHCHECK_PATTERN=EXECUTING
-HEALTHCHECK --interval=1m CMD boinccmd --get_tasks | egrep -q "${HEALTHCHECK_PATTERN}" && exit 0 || exit 1
+HEALTHCHECK --interval=1m CMD \
+    find /proc/1 -maxdepth 0 "!" -newermt "${START_DELAY:60} seconds ago" -exec false {} + \
+    || boinccmd --get_tasks | egrep -q "${HEALTHCHECK_PATTERN}" || exit 1
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
