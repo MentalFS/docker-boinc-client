@@ -26,7 +26,7 @@ ENV ENV=/start \
     X_NCPUS_PCT=100 \
     HEALTHCHECK_PATTERN=EXECUTING
 HEALTHCHECK --interval=1m CMD \
-    find /proc/1 -maxdepth 0 "!" -newermt "${START_DELAY:60} seconds ago" -exec false {} + \
+    find /proc/1 -maxdepth 0 "!" -newermt "${START_DELAY:-60} seconds ago" -exec false {} + \
     || boinccmd --get_tasks | egrep -q "${HEALTHCHECK_PATTERN}" || exit 1
 
 # Tests, ensure they are run before release by copying marker file
