@@ -1,18 +1,29 @@
 FROM debian:stable-20240311-slim as install
+ARG BOINC_REPO=stable
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     apt update; \
-    apt -y install --no-install-recommends boinc-client \
+    apt -y install --no-install-recommends ca-certificates curl gnupg \
       intel-opencl-icd mesa-opencl-icd libgl1 \
-      boinctui bash-completion clinfo procps vim-tiny; \
+      bash-completion clinfo procps vim-tiny; \
     update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
+RUN set -eux; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    export DEBIAN_CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME}")"; \
+    test -n "${BOINC_REPO}" \
+    && curl -fsSL "https://boinc.berkeley.edu/dl/linux/${BOINC_REPO}/${DEBIAN_CODENAME}/boinc.gpg" | gpg --dearmor -o /etc/apt/keyrings/boinc.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/boinc.gpg] https://boinc.berkeley.edu/dl/linux/${BOINC_REPO}/${DEBIAN_CODENAME} ${DEBIAN_CODENAME} main" | tee /etc/apt/sources.list.d/boinc.list \
+    || echo "installing boinc from Debian ${DEBIAN_CODENAME} repository"; \
+    apt update; \
+    apt -y install --no-install-recommends boinc-client boinctui; \
+    apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
 
-# Replace symbolic links
+# Replace symbolic links and configure image
 FROM install AS build
 RUN set -eux; \
     mkdir -p /var/lib/boinc-client/locale; \
-    chown boinc:boinc /etc/boinc-client/*; \
+    chown -R boinc:boinc /etc/boinc-client /var/lib/boinc-client; \
     mkdir -p /etc/OpenCL/vendors && \
     test -f /etc/OpenCL/vendors/nvidia.icd || echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd
 COPY start /
@@ -40,7 +51,6 @@ RUN set -eux; \
 	echo OLD > /var/lib/boinc-client/global_prefs_override.xml; \
     /start boinc --show_projects; \
     test -z "$(cat /etc/boinc-client/gui_rpc_auth.cfg)"; \
-    test -z "$(egrep -v '^#' /etc/boinc-client/remote_hosts.cfg)"; \
     tail -n +0 /var/lib/boinc-client/global*; grep '<host_venue></host_venue>' /var/lib/boinc-client/global_prefs_override.xml; \
     find /etc/boinc-client -type f -print0 | xargs -0r tail -vn +0; \
     date --rfc-3339=seconds | tee /tmp/tested

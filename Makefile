@@ -10,9 +10,9 @@ pull:
 
 test:
 	docker build --progress=plain --no-cache-filter=build --target=test .
-
-alpha:
-	docker build -f Dockerfile.alpha --progress=plain --no-cache-filter=build --target=test .
+	docker build --progress=plain --no-cache-filter=build --target=test . --build-arg BOINC_REPO=
+	docker build --progress=plain --no-cache-filter=build --target=test . --build-arg BOINC_REPO=alpha
+	docker build --progress=plain --no-cache-filter=build --target=test . --build-arg BOINC_REPO=stable
 
 release:
 	docker build --pull -t $(NAME):latest .
