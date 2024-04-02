@@ -11,6 +11,8 @@ RUN set -eux; \
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     export DEBIAN_CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME}")"; \
+    addgroup --quiet --system boinc; \
+    adduser --quiet --system --ingroup boinc --home /var/lib/boinc-client --gecos "BOINC core client" boinc; \
     test -n "${BOINC_REPO}" \
     && curl -fsSL "https://boinc.berkeley.edu/dl/linux/${BOINC_REPO}/${DEBIAN_CODENAME}/boinc.gpg" | gpg --dearmor -o /etc/apt/keyrings/boinc.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/boinc.gpg] https://boinc.berkeley.edu/dl/linux/${BOINC_REPO}/${DEBIAN_CODENAME} ${DEBIAN_CODENAME} main" | tee /etc/apt/sources.list.d/boinc.list \
@@ -53,6 +55,7 @@ RUN set -eux; \
     test -z "$(cat /etc/boinc-client/gui_rpc_auth.cfg)"; \
     tail -n +0 /var/lib/boinc-client/global*; grep '<host_venue></host_venue>' /var/lib/boinc-client/global_prefs_override.xml; \
     find /etc/boinc-client -type f -print0 | xargs -0r tail -vn +0; \
+    id; test "uid=100(boinc) gid=101(boinc) groups=101(boinc),44(video)" = "$(id)"; \
     date --rfc-3339=seconds | tee /tmp/tested
 
 # Release
