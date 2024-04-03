@@ -5,6 +5,12 @@ on:
       push:
         required: true
         type: boolean
+  workflow_dispatch:
+    inputs:
+      push:
+        required: true
+        type: boolean
+        default: true
 
 permissions:
   contents: read
