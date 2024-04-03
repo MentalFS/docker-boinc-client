@@ -1,5 +1,4 @@
 FROM debian:stable-20240311-slim as install
-ARG BOINC_REPO=stable
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     apt update; \
@@ -8,6 +7,7 @@ RUN set -eux; \
       bash-completion clinfo procps vim-tiny; \
     update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
+ARG BOINC_REPO=stable
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     export DEBIAN_CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME}")"; \
