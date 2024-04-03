@@ -40,8 +40,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_AUTHOR }}/${{ env.IMAGE_NAME }}
 
-      - name: Build RELEASE image and push it to ${{ env.REGISTRY }}
-        id: build-and-push
+      - name: Build RELEASE Docker image and push it to ${{ env.REGISTRY }}
+        id: build-and-push-release
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -55,8 +55,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build ALPHA image and push it to ${{ env.REGISTRY }}
-        id: build-and-push
+      - name: Build ALPHA Docker image and push it to ${{ env.REGISTRY }}
+        id: build-and-push-alpha
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -68,8 +68,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build DEBIAN image and push it to ${{ env.REGISTRY }}
-        id: build-and-push
+      - name: Build DEBIAN Docker image and push it to ${{ env.REGISTRY }}
+        id: build-and-push-debian
         uses: docker/build-push-action@v5
         with:
           context: .
