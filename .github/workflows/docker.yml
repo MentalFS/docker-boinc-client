@@ -51,7 +51,7 @@ jobs:
           package-name: ${{ env.IMAGE_NAME }}
           package-type: container
           min-versions-to-keep: 8
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract Docker metadata
         id: meta
