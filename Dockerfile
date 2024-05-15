@@ -2,7 +2,8 @@ FROM debian:stable-20240513-slim as install
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     apt update; \
-    apt -y install --no-install-recommends ca-certificates curl gnupg \
+    apt -y install --no-install-recommends --ignore-missing \
+      ca-certificates curl gnupg python3 \
       intel-opencl-icd mesa-opencl-icd libgl1 \
       bash-completion clinfo procps vim-tiny; \
     update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
@@ -18,7 +19,7 @@ RUN set -eux; \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/boinc.gpg] https://boinc.berkeley.edu/dl/linux/${BOINC_REPO}/${DEBIAN_CODENAME} ${DEBIAN_CODENAME} main" | tee /etc/apt/sources.list.d/boinc.list \
     || echo "installing boinc from Debian ${DEBIAN_CODENAME} repository"; \
     apt update; \
-    apt -y install --no-install-recommends boinc-client boinctui; \
+    apt -y install --no-install-recommends --ignore-missing boinc-client boinctui; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
 
 # Replace symbolic links and configure image
