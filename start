@@ -44,7 +44,6 @@ if [ "`whoami`" = "boinc" ]; then
 			<file_xfer>1</file_xfer>
 			<sched_ops>1</sched_ops>
 			<task>1</task>
-			<unparsed_xml>1</unparsed_xml>
 		</log_flags>
 	</cc_config>
 	END
