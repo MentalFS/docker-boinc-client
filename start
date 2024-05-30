@@ -10,11 +10,11 @@ if [ "`whoami`" = "boinc" ]; then
 		<run_gpu_if_user_active>1</run_gpu_if_user_active>
 		${MAX_NCPUS_PCT:+"<max_ncpus_pct>${MAX_NCPUS_PCT}</max_ncpus_pct>"}
 		${CPU_USAGE_LIMIT:+"<cpu_usage_limit>${CPU_USAGE_LIMIT}</cpu_usage_limit>"}
-		<suspend_cpu_usage>0.0</suspend_cpu_usage>
+		${SUSPEND_CPU_USAGE:+"<suspend_cpu_usage>${SUSPEND_CPU_USAGE}</suspend_cpu_usage>"}
 		${RAM_MAX_USED_PCT:+"<ram_max_used_busy_pct>${RAM_MAX_USED_PCT}</ram_max_used_busy_pct>"}
 		${MAX_NCPUS_PCT:+"<niu_max_ncpus_pct>${MAX_NCPUS_PCT}</niu_max_ncpus_pct>"}
 		${CPU_USAGE_LIMIT:+"<niu_cpu_usage_limit>${CPU_USAGE_LIMIT}</niu_cpu_usage_limit>"}
-		<niu_suspend_cpu_usage>0.0</niu_suspend_cpu_usage>
+		${SUSPEND_CPU_USAGE:+"<niu_suspend_cpu_usage>${SUSPEND_CPU_USAGE}</niu_suspend_cpu_usage>"}
 		${RAM_MAX_USED_PCT:+"<ram_max_used_idle_pct>${RAM_MAX_USED_PCT}</ram_max_used_idle_pct>"}
 		<suspend_if_no_recent_input>0</suspend_if_no_recent_input>
 		${CPU_SCHEDULING_PERIOD_MINUTES:+"<cpu_scheduling_period_minutes>${CPU_SCHEDULING_PERIOD_MINUTES}</cpu_scheduling_period_minutes>"}
@@ -40,10 +40,11 @@ if [ "`whoami`" = "boinc" ]; then
 			${START_DELAY:+"<start_delay>${START_DELAY}</start_delay>"}
 		</options>
 		<log_flags>
-			<cpu_sched>1</cpu_sched>
+			${LOG_CPU_SCHED:+"<cpu_sched>${LOG_CPU_SCHED}</cpu_sched>"}
 			<file_xfer>1</file_xfer>
 			<sched_ops>1</sched_ops>
 			<task>1</task>
+			${LOG_UNPARSED_XML:+"<unparsed_xml>${LOG_UNPARSED_XML}</unparsed_xml>"}
 		</log_flags>
 	</cc_config>
 	END

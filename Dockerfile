@@ -38,8 +38,9 @@ ENTRYPOINT ["/start"]
 CMD ["boinc"]
 ENV ENV=/start \
     CPU_USAGE_LIMIT=100 \
+    SUSPEND_CPU_USAGE=0.0 \
     NVIDIA_DRIVER_CAPABILITIES=compute,video,utility \
-    X_NCPUS_PCT=100 \
+    MAX_NCPUS_PCT=100 \
     HEALTHCHECK_PATTERN=EXECUTING
 HEALTHCHECK --interval=1m CMD \
     find /proc/1 -maxdepth 0 "!" -newermt "${START_DELAY:-60} seconds ago" -exec false {} + \
