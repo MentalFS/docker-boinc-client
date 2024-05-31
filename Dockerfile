@@ -11,7 +11,9 @@ RUN set -eux; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
 ARG BOINC_REPO=stable
 RUN test -n "${BOINC_REPO}" \
-    && curl -fsSL "https://boinc.berkeley.edu/dl/linux/${BOINC_REPO}/${DEBIAN_CODENAME}/boinc.gpg" | gpg --dearmor -o /etc/apt/keyrings/boinc.gpg \
+    && export DEBIAN_CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME}")"; \
+    && curl -fsSL "https://boinc.berkeley.edu/dl/linux/${BOINC_REPO}/${DEBIAN_CODENAME}/boinc.gpg" \
+       | gpg --dearmor -o /etc/apt/keyrings/boinc.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/boinc.gpg] https://boinc.berkeley.edu/dl/linux/${BOINC_REPO}/${DEBIAN_CODENAME} ${DEBIAN_CODENAME} main" | tee /etc/apt/sources.list.d/boinc.list \
     || echo "installing boinc from Debian ${DEBIAN_CODENAME} repository"
 RUN set -eux; \
