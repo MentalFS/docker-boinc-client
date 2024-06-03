@@ -33,11 +33,15 @@ if [ "`whoami`" = "boinc" ]; then
 			<allow_remote_gui_rpc>1</allow_remote_gui_rpc>
 			${DEVICE_NAME:+"<device_name>${DEVICE_NAME}</device_name>"}
 			<dont_use_vbox>1</dont_use_vbox>
+			${EXIT_WHEN_IDLE:+"<exit_when_idle>${EXIT_WHEN_IDLE}</exit_when_idle>"}
+			${FETCH_MINIMAL_WORK:+"<fetch_minimal_work>${FETCH_MINIMAL_WORK}</fetch_minimal_work>"}
+			${FETCH_ON_UPDATE:+"<fetch_on_update>${FETCH_ON_UPDATE}</fetch_on_update>"}
 			${PROCESS_PRIORITY:+"<process_priority>${PROCESS_PRIORITY}</process_priority>"}
 			${PROCESS_PRIORITY_SPECIAL:+"<process_priority_special>${PROCESS_PRIORITY_SPECIAL}</process_priority_special>"}
 			${REC_HALF_LIFE_DAYS:+"<rec_half_life_days>${REC_HALF_LIFE_DAYS}</rec_half_life_days>"}
             <use_all_gpus>1</use_all_gpus>
 			${START_DELAY:+"<start_delay>${START_DELAY}</start_delay>"}
+			${ZERO_DEBT:+"<zero_debt>${ZERO_DEBT}</zero_debt>"}
 		</options>
 		<log_flags>
 			${LOG_CPU_SCHED:+"<cpu_sched>${LOG_CPU_SCHED}</cpu_sched>"}
