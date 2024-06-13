@@ -39,7 +39,7 @@ if [ "`whoami`" = "boinc" ]; then
 			${PROCESS_PRIORITY:+"<process_priority>${PROCESS_PRIORITY}</process_priority>"}
 			${PROCESS_PRIORITY_SPECIAL:+"<process_priority_special>${PROCESS_PRIORITY_SPECIAL}</process_priority_special>"}
 			${REC_HALF_LIFE_DAYS:+"<rec_half_life_days>${REC_HALF_LIFE_DAYS}</rec_half_life_days>"}
-            <use_all_gpus>1</use_all_gpus>
+			<use_all_gpus>1</use_all_gpus>
 			${START_DELAY:+"<start_delay>${START_DELAY}</start_delay>"}
 			${ZERO_DEBT:+"<zero_debt>${ZERO_DEBT}</zero_debt>"}
 		</options>
