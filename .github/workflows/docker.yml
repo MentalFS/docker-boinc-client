@@ -30,6 +30,8 @@ jobs:
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          platforms: "linux/amd64"
 
       - name: Log into registry
         if: ${{ inputs.push }}
@@ -64,6 +66,7 @@ jobs:
             ghcr.io/${{ env.IMAGE_AUTHOR }}/${{ env.IMAGE_NAME }}:release
             ghcr.io/${{ env.IMAGE_AUTHOR }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: "linux/amd64"
           provenance: false
           push: ${{ inputs.push }}
           cache-from: type=gha
@@ -77,6 +80,7 @@ jobs:
           build-args: BOINC_REPO=alpha
           tags: ghcr.io/${{ env.IMAGE_AUTHOR }}/${{ env.IMAGE_NAME }}:alpha
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: "linux/amd64"
           provenance: false
           push: ${{ inputs.push }}
           cache-from: type=gha
@@ -90,6 +94,7 @@ jobs:
           build-args: BOINC_REPO=
           tags: ghcr.io/${{ env.IMAGE_AUTHOR }}/${{ env.IMAGE_NAME }}:debian
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: "linux/amd64"
           provenance: false
           push: ${{ inputs.push }}
           cache-from: type=gha
