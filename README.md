@@ -7,11 +7,10 @@ This image does not include the GUI client and should be used via [boinccmd](htt
 When the GUI RPC Port is routed, it is also possible to control the client remotely with [BOINC Manager](https://boinc.berkeley.edu/wiki/BOINC_Manager) or the above tools.
 
 ## Tags
-| Tag                 |                                                                                                             |
-|---------------------|-------------------------------------------------------------------------------------------------------------|
-| `release`, `latest` | Uses, if possible, the official BOINC APT release repository                                                |
-| `alpha`             | Uses, if possible, the official BOINC APT pre-release / alpha repository                                    |
-| `debian`            | Uses the [Debian package](https://packages.debian.org/stable/boinc-client) and no additional APT repository |
+| Tag                 |                                                                          |
+|---------------------|--------------------------------------------------------------------------|
+| `release`, `latest` | Uses, if possible, the official BOINC APT release repository             |
+| `alpha`             | Uses, if possible, the official BOINC APT pre-release / alpha repository |
 
 ## Volumes
 

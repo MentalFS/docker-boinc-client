@@ -85,17 +85,3 @@ jobs:
           push: ${{ inputs.push }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Build DEBIAN Docker image and push it
-        id: build-and-push-debian
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          build-args: BOINC_REPO=
-          tags: ghcr.io/${{ env.IMAGE_AUTHOR }}/${{ env.IMAGE_NAME }}:debian
-          labels: ${{ steps.meta.outputs.labels }}
-          platforms: "linux/amd64"
-          provenance: false
-          push: ${{ inputs.push }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
