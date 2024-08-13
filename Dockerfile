@@ -1,4 +1,4 @@
-FROM debian:stable-20240722-slim as install
+FROM debian:stable-20240812-slim as install
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     apt update; \
