@@ -53,6 +53,27 @@ if [ "`whoami`" = "boinc" ]; then
 	</cc_config>
 	END
 
+	# Project-sepcific configuration
+	if [ -n "${MILKYWAY_NCPUS}" ]; then
+		mkdir -p /var/lib/boinc-client/projects/milkyway.cs.rpi.edu_milkyway
+		cat > "/var/lib/boinc-client/projects/milkyway.cs.rpi.edu_milkyway/app_config.xml" <<- END
+		<app_config>
+		  <app_version>
+		    <app_name>milkyway_nbody</app_name>
+		    <plan_class>mt</plan_class>
+		    <avg_ncpus>${MILKYWAY_NCPUS}</avg_ncpus>
+		    <cmdline>--nthreads ${MILKYWAY_NCPUS}</cmdline>
+		  </app_version>
+		  <app_version>
+		    <app_name>milkyway_nbody_orbit_fitting</app_name>
+		    <plan_class>mt</plan_class>
+		    <avg_ncpus>${MILKYWAY_NCPUS}</avg_ncpus>
+		    <cmdline>--nthreads ${MILKYWAY_NCPUS}</cmdline>
+		  </app_version>
+		</app_config>
+		END
+	fi
+
 	# Migrate from old image, can be removed at some point to allow own files
 	if [ -f /var/lib/boinc-client/cc_config.xml ] && [ ! -h /var/lib/boinc-client/cc_config.xml ]; then
 		rm -f /var/lib/boinc-client/cc_config.xml

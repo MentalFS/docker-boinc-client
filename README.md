@@ -40,6 +40,7 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 | `WORK_BUF_MIN_DAYS`             | *empty*     | Store enough tasks to keep the computer busy for this long (in Days, decimal number)  |
 | `WORK_BUF_ADDITIONAL_DAYS`      | *empty*     | Store additional tasks above the minimum level (in Days, decimal number)              |
 | `HEALTHCHECK_PATTERN`           | `EXECUTING` | Will make the conainer unhealthy when no task is executing, set to `.` to avoid that  |
+| `MILKYWAY_NCPUS`                | * empty*    | Number of CPU cores per task to use in [MilkyWay@home](https://milkyway.cs.rpi.edu/)  |
 
 ## Download
 
