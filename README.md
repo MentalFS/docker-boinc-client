@@ -2,15 +2,15 @@
 
 A Docker image for the [BOINC client](https://github.com/BOINC/boinc).
 
-This image does not include the GUI client and should be used via [boinccmd](https://manpages.debian.org/stable/boinc-client/boinccmd.1.en.html) or with [boinctui](https://packages.debian.org/stable/boinctui) (included for convenience).
+This image does not include the GUI client and should be used via [boinccmd](https://manpages.debian.org/stable/boinc-client/boinccmd.1.en.html) or remotely.
 
-When the GUI RPC Port is routed, it is also possible to control the client remotely with [BOINC Manager](https://boinc.berkeley.edu/wiki/BOINC_Manager) or the above tools.
+When the GUI RPC Port is routed, it is also possible to control the client remotely with [BOINC Manager](https://boinc.berkeley.edu/wiki/BOINC_Manager) or [boinctui](https://packages.debian.org/stable/boinctui) (only recommended for `localhost`).
 
 ## Tags
-| Tag                 |                                                                          |
-|---------------------|--------------------------------------------------------------------------|
-| `release`, `latest` | Uses, if possible, the official BOINC APT release repository             |
-| `alpha`             | Uses, if possible, the official BOINC APT pre-release / alpha repository |
+| Tag                 |                                                            |
+|---------------------|------------------------------------------------------------|
+| `release`, `latest` | Uses the official BOINC APT release repository             |
+| `alpha`             | Uses the official BOINC APT pre-release / alpha repository |
 
 ## Volumes
 
@@ -39,7 +39,6 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 | `DISK_INTERVAL`                 | *empty*     | Interval in seconds to save state to disk, *empty* uses website preferences           |
 | `WORK_BUF_MIN_DAYS`             | *empty*     | Store enough tasks to keep the computer busy for this long (in Days, decimal number)  |
 | `WORK_BUF_ADDITIONAL_DAYS`      | *empty*     | Store additional tasks above the minimum level (in Days, decimal number)              |
-| `HEALTHCHECK_PATTERN`           | `EXECUTING` | Will make the conainer unhealthy when no task is executing, set to `.` to avoid that  |
 | `MILKYWAY_NCPUS`                | * empty*    | Number of CPU cores per task to use in [MilkyWay@home](https://milkyway.cs.rpi.edu/)  |
 
 ## Download
@@ -72,16 +71,10 @@ More command info:
 docker exec boinc boinccmd --help
 ```
 
-Start boinctui:
-```bash
-docker exec -it boinc boinctui
-```
-
 
 ## Notes
 
 * `global_prefs_override.xml` will be overwritten to use environment variables.
-* Apparently the order in `global_prefs_override.xml` matters, be aware of that when using `GLOBAL_PREFERENCES_XML`.
 * The option `allow_remote_gui_rpc` will be set to `1`, allowing all hosts to connect to the GUI RPC.
 * GPUs are usable with `--gpus`, `--privileged` (not recommended) or `--device /dev/dri:/dev/dri` depending on GPU model.
 * Docker can restrict CPU load with `--cpus`, which is most likely preferable to using `CPU_USAGE_LIMIT`.

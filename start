@@ -1,9 +1,14 @@
 #!/bin/sh
 
 if [ "`whoami`" = "boinc" ]; then
+    # Remove symbolic links
+    rm -f "/var/lib/boinc-client/cc_config.xml"
+    rm -f "/var/lib/boinc-client/global_prefs_override.xml"
+    rm -f "/var/lib/boinc-client/gui_rpc_auth.cfg"
+
 	# Setup environment
-	echo "${GUI_RPC_AUTH}" > /etc/boinc-client/gui_rpc_auth.cfg
-	sed '/^[[:space:]]*$/d' > "/etc/boinc-client/global_prefs_override.xml" <<- END
+	echo "${GUI_RPC_AUTH}" > /var/lib/boinc-client/gui_rpc_auth.cfg
+	sed '/^[[:space:]]*$/d' > "/var/lib/boinc-client/global_prefs_override.xml" <<- END
 	<global_preferences>
 		${HOST_VENUE:+"<host_venue>$([ "${HOST_VENUE}" = "none" ] || echo "${HOST_VENUE}")</host_venue>"}
 		<run_if_user_active>1</run_if_user_active>
@@ -27,7 +32,7 @@ if [ "`whoami`" = "boinc" ]; then
 		${DISK_MAX_USED_PCT:+"<disk_max_used_pct>${DISK_MAX_USED_PCT}</disk_max_used_pct>"}
 	</global_preferences>
 	END
-	sed '/^[[:space:]]*$/d' > "/etc/boinc-client/cc_config.xml" <<- END
+	sed '/^[[:space:]]*$/d' > "/var/lib/boinc-client/cc_config.xml" <<- END
 	<cc_config>
 		<options>
 			<allow_remote_gui_rpc>1</allow_remote_gui_rpc>
@@ -56,6 +61,7 @@ if [ "`whoami`" = "boinc" ]; then
 	# Project-sepcific configuration
 	if [ -n "${MILKYWAY_NCPUS}" ]; then
 		mkdir -p /var/lib/boinc-client/projects/milkyway.cs.rpi.edu_milkyway
+		rm -f "/var/lib/boinc-client/projects/milkyway.cs.rpi.edu_milkyway/app_config.xml"
 		cat > "/var/lib/boinc-client/projects/milkyway.cs.rpi.edu_milkyway/app_config.xml" <<- END
 		<app_config>
 		  <app_version>
@@ -74,47 +80,9 @@ if [ "`whoami`" = "boinc" ]; then
 		END
 	fi
 
-	# Migrate from old image, can be removed at some point to allow own files
-	if [ -f /var/lib/boinc-client/cc_config.xml ] && [ ! -h /var/lib/boinc-client/cc_config.xml ]; then
-		rm -f /var/lib/boinc-client/cc_config.xml
-		ln -s /etc/boinc-client/cc_config.xml /var/lib/boinc-client/cc_config.xml
-	fi
-	if [ -f /var/lib/boinc-client/global_prefs_override.xml ] && [ ! -h /var/lib/boinc-client/global_prefs_override.xml ]; then
-		rm -f /var/lib/boinc-client/global_prefs_override.xml
-		ln -s /etc/boinc-client/global_prefs_override.xml /var/lib/boinc-client/global_prefs_override.xml
-	fi
-	if [ -h /var/lib/boinc-client/.boinctui.cfg ]; then
-		rm -f /var/lib/boinc-client/.boinctui.cfg
-	fi
-
-	# tool setup
-	cat > "/var/lib/boinc-client/.boinctui.cfg" <<- END
-	<boinctui_cfg>
-		<server>
-			<host>localhost</host>
-			<pwd>${GUI_RPC_AUTH}</pwd>
-			<port>31416</port>
-			<hostid>docker</hostid>
-		</server>
-		<version>2.7.0</version>
-		<transparent_background>1</transparent_background>
-	</boinctui_cfg>
-	END
-
-	cp -rn /etc/skel/. /var/lib/boinc-client/
-	if [ ! -f "/var/lib/boinc-client/.vimrc" ]; then
-		cat > "/var/lib/boinc-client/.vimrc" <<- END
-		runtime! debian.vim
-		set mouse=a
-		map <Tab> :tabnext<CR>
-		map <S-Tab> :tabprevious<CR>
-		END
-	fi
-
 	if [ "$0" = "/bin/sh" ] && [ -z "$*" ]; then
-		# This makes boinctui appear in Docker Desktop on the Exec tab
-		boinctui
-		bash -l && exit || echo -n "\n[$0] `whoami`@`hostname`"
+		# This appears on the Docker Desktop Exec tab
+		boinccmd --get_task_summary; echo
 	fi
 fi
 
