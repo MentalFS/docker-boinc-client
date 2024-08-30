@@ -82,7 +82,9 @@ if [ "`whoami`" = "boinc" ]; then
 
 	if [ "$0" = "/bin/sh" ] && [ -z "$*" ]; then
 		# This appears on the Docker Desktop Exec tab
-		boinccmd --get_task_summary; echo
+		clear
+		boinccmd --get_task_summary pcesrw
+		echo
 	fi
 fi
 
