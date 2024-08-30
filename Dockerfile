@@ -26,7 +26,7 @@ RUN set -eux; \
 FROM install AS build
 RUN set -eux; \
     mkdir -p /var/lib/boinc-client/locale; \
-    test -h "/var/lib/boinc" && rm -f "/var/lib/boinc"; \
+    test -L "/var/lib/boinc" && rm -f "/var/lib/boinc"; \
     test -d "/var/lib/boinc" && mv /var/lib/boinc/* "/var/lib/boinc-client/"; \
     rm -rf "/var/lib/boinc"; ln -s "/var/lib/boinc-client" "/var/lib/boinc"; \
     rm -rf "/etc/boinc-client"; ln -s "/var/lib/boinc-client" "/etc/boinc-client"; \

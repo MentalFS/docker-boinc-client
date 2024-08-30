@@ -2,10 +2,10 @@
 
 if [ "`whoami`" = "boinc" ]; then
 	# Remove symbolic links
-	test -h "/var/lib/boinc-client/cc_config.xml" && rm -f "/var/lib/boinc-client/cc_config.xml"
-	test -h "/var/lib/boinc-client/global_prefs_override.xml" && rm -f "/var/lib/boinc-client/global_prefs_override.xml"
-	test -h "/var/lib/boinc-client/gui_rpc_auth.cfg" && rm -f "/var/lib/boinc-client/gui_rpc_auth.cfg"
-	test -h "/var/lib/boinc-client/remote_hosts.cfg" && rm -f "/var/lib/boinc-client/remote_hosts.cfg"
+	test -L "/var/lib/boinc-client/cc_config.xml" && rm -f "/var/lib/boinc-client/cc_config.xml"
+	test -L "/var/lib/boinc-client/global_prefs_override.xml" && rm -f "/var/lib/boinc-client/global_prefs_override.xml"
+	test -L "/var/lib/boinc-client/gui_rpc_auth.cfg" && rm -f "/var/lib/boinc-client/gui_rpc_auth.cfg"
+	test -L "/var/lib/boinc-client/remote_hosts.cfg" && rm -f "/var/lib/boinc-client/remote_hosts.cfg"
 
 	# Setup environment
 	echo "${GUI_RPC_AUTH}" > /var/lib/boinc-client/gui_rpc_auth.cfg
