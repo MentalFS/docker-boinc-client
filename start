@@ -88,7 +88,7 @@ if [ "`whoami`" = "boinc" ]; then
 			<host>localhost</host>
 			<pwd>${GUI_RPC_AUTH}</pwd>
 			<port>31416</port>
-			<hostid>docker</hostid>
+			<hostid>${DEVICE_NAME:-"DOCKER"}</hostid>
 		</server>
 		<version>2.7.0</version>
 		<transparent_background>1</transparent_background>
