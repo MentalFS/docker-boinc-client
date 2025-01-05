@@ -81,10 +81,34 @@ if [ "`whoami`" = "boinc" ]; then
 		END
 	fi
 
+	# tool setup
+	cat > "/var/lib/boinc-client/.boinctui.cfg" <<- END
+	<boinctui_cfg>
+		<server>
+			<host>localhost</host>
+			<pwd>${GUI_RPC_AUTH}</pwd>
+			<port>31416</port>
+			<hostid>docker</hostid>
+		</server>
+		<version>2.7.0</version>
+		<transparent_background>1</transparent_background>
+	</boinctui_cfg>
+	END
+	cp -rn /etc/skel/. /var/lib/boinc-client/
+	if [ ! -f "/var/lib/boinc-client/.vimrc" ]; then
+		cat > "/var/lib/boinc-client/.vimrc" <<- END
+		runtime! debian.vim
+		set mouse=a
+		map <Tab> :tabnext<CR>
+		map <S-Tab> :tabprevious<CR>
+		END
+	fi
+
 	if [ "$0" = "/bin/sh" ] && [ -z "$*" ]; then
 		# This appears on the Docker Desktop Exec tab
 		clear
-		boinccmd --get_task_summary sprce
+		boinctui
+		bash -l && exit || echo -n "\n[$0] `whoami`@`hostname`"
 		echo
 	fi
 fi

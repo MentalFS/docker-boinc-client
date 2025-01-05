@@ -2,9 +2,10 @@ FROM debian:stable-20241223-slim AS install
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     apt update; \
-    for P in ca-certificates curl gnupg python3 libgl1 ocl-icd-libopencl1 libquadmath0; do \
+    for P in ca-certificates curl gnupg python3 libgl1 ocl-icd-libopencl1 libquadmath0 boinctui vim-tiny; do \
       apt -y install --no-install-recommends "${P}" || echo "ERROR: Could not install ${P}"; \
     done; \
+    update-alternatives --install /usr/bin/vim vim /usr/bin/vim.tiny 0 || echo WARNING; \
     apt clean; rm -rf /var/lib/apt/lists/* /var/log/*
 ARG BOINC_REPO=stable
 RUN test -n "${BOINC_REPO}" \

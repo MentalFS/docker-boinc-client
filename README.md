@@ -71,6 +71,11 @@ More command info:
 docker exec boinc boinccmd --help
 ```
 
+Start boinctui:
+```bash
+docker exec -it boinc boinctui
+```
+
 
 ## Notes
 
