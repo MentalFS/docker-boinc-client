@@ -108,8 +108,8 @@ if [ "`whoami`" = "boinc" ]; then
 		# This appears on the Docker Desktop Exec tab
 		clear
 		boinctui
-		bash -l && exit || echo -n "\n[$0] `whoami`@`hostname`"
-		echo
+		bash -l
+		exit
 	fi
 fi
 
