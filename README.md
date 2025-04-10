@@ -32,7 +32,7 @@ When the GUI RPC Port is routed, it is also possible to control the client remot
 | `DEVICE_NAME`                   | *empty*     | The device name will default to the docker hostname (usually random) if not set       |
 | `HOST_VENUE`                    | *empty*     | Host venue type: `none`, `home`, `school` or `work`                                   |
 | `MAX_NCPUS_PCT`                 | `100`       | Percentage of CPU cores to use, *empty* uses website preferences                      |
-| `CPU_USAGE_LIMIT`               | `100`       | Load percentage to use, *empty* uses website preferences                              |
+| `CPU_USAGE_LIMIT`               | `99`        | Load percentage to use, *empty* uses website preferences                              |
 | `SUSPEND_CPU_USAGE`             | `0.0`       | Suspend when non-BOINC CPU usage is above (only useful with `--pid=host`              |
 | `RAM_MAX_USED_PCT`              | *empty*     | Percentage of RAM to use at max, *empty* uses website preferences                     |
 | `CPU_SCHEDULING_PERIOD_MINUTES` | *empty*     | Switch between tasks/projects every X minutes                                         |
