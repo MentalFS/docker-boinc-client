@@ -41,7 +41,7 @@ WORKDIR /var/lib/boinc-client
 ENTRYPOINT ["/start"]
 CMD ["boinc"]
 ENV ENV=/start \
-    CPU_USAGE_LIMIT=99 \
+    CPU_USAGE_LIMIT=100 \
     SUSPEND_CPU_USAGE=0.0 \
     MAX_NCPUS_PCT=100 \
     NVIDIA_VISIBLE_DEVICES=all \
