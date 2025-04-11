@@ -1,10 +1,10 @@
 # docker-boinc-client
 
-A Docker image for the [BOINC client](https://github.com/BOINC/boinc).
+A Docker image for the [BOINC] [client], a volunteer computing program to donate CPU/GPU power for various scientific [projects].
 
-This image does not include the GUI client and should be used via [boinccmd] or remotely.
+This image does not include the GUI client and should be used via [boinccmd] or [remotely].
 
-When the GUI RPC Port is routed, it is also possible to control the client remotely with [BOINC Manager] or [boinctui] (only recommended for `localhost`).
+When the GUI RPC Port is routed, it is also possible to control the client with [BOINC Manager] or [boinctui] (only recommended for `localhost`).
 
 ## Tags
 | Tag                 |                                                            |
@@ -86,6 +86,11 @@ docker exec -it boinc boinctui
 * The above examples do work with WSL2 and NVidia GPU.
 * Port 31416 should **not** be publicly available, no matter whether `GUI_RPC_AUTH` is set.
 
-[boinccmd]: https://manpages.debian.org/stable/boinc-client/boinccmd.1.en.html
+
+[BOINC]: https://boinc.berkeley.edu/
+[client]: https://boinc.berkeley.edu/wiki/BOINC_Client
+[projects]: https://boinc.berkeley.edu/projects.php
+[boinccmd]: https://boinc.berkeley.edu/wiki/Boinccmd_tool
+[remotely]: https://boinc.berkeley.edu/wiki/Controlling_BOINC_remotely
 [BOINC Manager]: https://boinc.berkeley.edu/wiki/BOINC_Manager
-[boinctui]: https://packages.debian.org/stable/boinctui
+[boinctui]: https://github.com/suleman1971/boinctui
