@@ -41,6 +41,7 @@ WORKDIR /var/lib/boinc-client
 ENTRYPOINT ["/start"]
 CMD ["boinc"]
 ENV ENV=/start \
+    DEVICE_NAME=DOCKER \
     CPU_USAGE_LIMIT=100 \
     SUSPEND_CPU_USAGE=0.0 \
     MAX_NCPUS_PCT=100 \
