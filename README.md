@@ -65,8 +65,8 @@ docker run --name boinc \
 This will have to be redone for updates.
 
 ### Starting with Docker Compose
-Create a file `docker-compose.yml`:
-```json
+Create a file `docker-compose.yaml`:
+```yaml
 services:
   boinc:
     image: ghcr.io/mentalfs/boinc-client
