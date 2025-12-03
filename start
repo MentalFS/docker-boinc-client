@@ -14,6 +14,8 @@ if [ "`whoami`" = "boinc" ]; then
 		${HOST_VENUE:+"<host_venue>$([ "${HOST_VENUE}" = "none" ] || echo "${HOST_VENUE}")</host_venue>"}
 		<run_if_user_active>1</run_if_user_active>
 		<run_gpu_if_user_active>1</run_gpu_if_user_active>
+		${START_HOUR:+"<start_hour>${START_HOUR}</start_hour>"}
+		${END_HOUR:+"<end_hour>${END_HOUR}</end_hour>"}
 		${MAX_NCPUS_PCT:+"<max_ncpus_pct>${MAX_NCPUS_PCT}</max_ncpus_pct>"}
 		${CPU_USAGE_LIMIT:+"<cpu_usage_limit>${CPU_USAGE_LIMIT}</cpu_usage_limit>"}
 		${SUSPEND_CPU_USAGE:+"<suspend_cpu_usage>${SUSPEND_CPU_USAGE}</suspend_cpu_usage>"}

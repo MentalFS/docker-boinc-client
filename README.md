@@ -27,6 +27,8 @@ When the GUI RPC Port is routed, it is also possible to control the client with 
 | `GUI_RPC_AUTH`                  | *empty*  | The password for GUI RPC, empty means no password                                     |
 | `DEVICE_NAME`                   | `DOCKER` | The device name that will show up on the project's webpages                           |
 | `HOST_VENUE`                    | *empty*  | Host venue type: `none`, `home`, `school` or `work`                                   |
+| `START_HOUR`                    | *empty*  | If set, only start tasks after that hour (`1` - `24`)                                 |
+| `END_HOUR`                      | *empty*  | If set, stop tasks after that hour (`1` - `24`)                                       |
 | `MAX_NCPUS_PCT`                 | `100`    | Percentage of CPU cores to use, *empty* uses website preferences                      |
 | `CPU_USAGE_LIMIT`               | `100`    | Load percentage to use, *empty* uses website preferences                              |
 | `SUSPEND_CPU_USAGE`             | `0.0`    | Suspend when non-BOINC CPU usage is above (only useful with `--pid=host`              |

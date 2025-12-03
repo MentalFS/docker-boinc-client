@@ -53,7 +53,9 @@ HEALTHCHECK --interval=1m CMD \
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
-ENV HOST_VENUE=none
+ENV HOST_VENUE=none \
+	START_HOUR=1 \
+	END_HOUR=24
 RUN set -eux; \
     find /etc/boinc-client /var/lib/boinc /var/lib/boinc-client -type f -print0 | xargs -0r tail -vn +0; \
 	ls -lha /etc/boinc-client /var/lib/boinc /var/lib/boinc-client; \
