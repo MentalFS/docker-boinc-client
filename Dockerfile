@@ -47,9 +47,8 @@ ENV ENV=/start \
     MAX_NCPUS_PCT=100 \
     NVIDIA_VISIBLE_DEVICES=all \
     NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
-HEALTHCHECK --interval=1m CMD \
-    find /proc/1 -maxdepth 0 "!" -newermt "${START_DELAY:-60} seconds ago" -exec false {} + \
-    || boinccmd --get_task_summary sprce | tee /dev/stderr | egrep -q '^executing|^suspended|^uninitialized' 2>&1 || exit 1
+HEALTHCHECK --interval=1m --start-interval=1m --start-period=15m CMD \
+    boinccmd --get_task_summary sprce | tee /dev/stderr | egrep -q '^executing|^suspended|^uninitialized' 2>&1 || exit 1
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
