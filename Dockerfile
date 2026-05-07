@@ -48,7 +48,7 @@ ENV ENV=/start \
     NVIDIA_VISIBLE_DEVICES=all \
     NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
 HEALTHCHECK --interval=1m --start-interval=1m --start-period=15m CMD \
-    boinccmd --get_task_summary sprce | tee /dev/stderr | egrep -q '^executing|^suspended|^uninitialized' 2>&1 || exit 1
+    boinccmd --get_task_summary sprced | tee /dev/stderr | egrep -q '^executing|^suspended|^uninitialized' 2>&1 || exit 1
 
 # Tests, ensure they are run before release by copying marker file
 FROM build AS test
